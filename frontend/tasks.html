@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager - My Tasks</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <h1>My Tasks</h1>
+        <button id="logout-btn" class="btn btn-secondary" onclick="logout()">
+          <span class="btn-text">Logout</span>
+          <span class="btn-loader"></span>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <!-- Create Task Form -->
+        <div class="task-form-card">
+          <h2>Add New Task</h2>
+          <form class="task-form" onsubmit="event.preventDefault(); createTask();">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="task-title">Title *</label>
+                <input type="text" id="task-title" placeholder="What needs to be done?" required />
+              </div>
+              <div class="form-group">
+                <label for="task-description">Description</label>
+                <input type="text" id="task-description" placeholder="Additional details (optional)" />
+              </div>
+            </div>
+            <button type="submit" id="create-task-btn" class="btn btn-primary">
+              <span class="btn-text">Add Task</span>
+              <span class="btn-loader"></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list-card">
+          <div class="task-list-header">
+            <h2>Your Tasks</h2>
+            <div class="task-legend">
+              <span class="legend-item pending">Pending</span>
+              <span class="legend-item in-progress">In Progress</span>
+              <span class="legend-item done">Done</span>
+            </div>
+          </div>
+          <ul id="task-list" class="task-list">
+            <li class="loading-placeholder">Loading tasks...</li>
+          </ul>
+        </div>
+
+        <p id="task-error" class="error-message"></p>
+      </main>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-modal" class="modal-overlay" onclick="if(event.target === this) closeEditModal()">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Edit Task</h2>
+          <button class="modal-close" onclick="closeEditModal()">✕</button>
+        </div>
+        <form class="modal-body" onsubmit="event.preventDefault(); saveTaskEdit();">
+          <div class="form-group">
+            <label for="edit-task-title">Title *</label>
+            <input type="text" id="edit-task-title" placeholder="Task title" required />
+          </div>
+          <div class="form-group">
+            <label for="edit-task-description">Description</label>
+            <textarea id="edit-task-description" placeholder="Task description (optional)" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit-task-status">Status</label>
+            <select id="edit-task-status">
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <p id="edit-error" class="error-message"></p>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+            <button type="submit" id="save-edit-btn" class="btn btn-primary">
+              <span class="btn-text">Save Changes</span>
+              <span class="btn-loader"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      // Check if user is authenticated
+      if (!getAccessToken()) {
+        window.location = 'index.html';
+      } else {
+        loadTasks();
+      }
+    </script>
+  </body>
+</html>

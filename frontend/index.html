@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager - Login</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>Task Manager</h1>
+          <p>Manage your tasks efficiently</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="tab-btn active" onclick="showTab('login')">Login</button>
+          <button class="tab-btn" onclick="showTab('register')">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active" onsubmit="event.preventDefault(); login();">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required />
+          </div>
+          <button type="submit" id="login-btn" class="btn btn-primary">
+            <span class="btn-text">Login</span>
+            <span class="btn-loader"></span>
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="auth-form" onsubmit="event.preventDefault(); register();">
+          <div class="form-group">
+            <label for="register-name">Name</label>
+            <input type="text" id="register-name" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="register-password1">Password</label>
+            <input type="password" id="register-password1" placeholder="Create a password" required />
+          </div>
+          <div class="form-group">
+            <label for="register-password2">Confirm Password</label>
+            <input type="password" id="register-password2" placeholder="Confirm your password" required />
+          </div>
+          <button type="submit" id="register-btn" class="btn btn-primary">
+            <span class="btn-text">Create Account</span>
+            <span class="btn-loader"></span>
+          </button>
+        </form>
+
+        <p id="auth-error" class="error-message"></p>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      function showTab(tab) {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const forms = document.querySelectorAll('.auth-form');
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        forms.forEach(f => f.classList.remove('active'));
+        
+        if (tab === 'login') {
+          tabs[0].classList.add('active');
+          document.getElementById('login-form').classList.add('active');
+        } else {
+          tabs[1].classList.add('active');
+          document.getElementById('register-form').classList.add('active');
+        }
+        
+        clearError('auth-error');
+      }
+    </script>
+  </body>
+</html>
