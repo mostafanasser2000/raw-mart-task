@@ -174,11 +174,9 @@ All task endpoints require JWT authentication (access token in Authorization hea
 ## Assumptions Made
 
 1. **Single-user sessions:** When a user logs in, all previous tokens are revoked
-2. **SQLite for simplicity:** Using SQLite as the database for easy setup; can be switched to PostgreSQL/MySQL via config
+2. **SQLite for simplicity:** Using SQLite as the database for easy setup; and PostgreSQL via Docker Compose
 3. **No email verification:** Registration does not require email verification
 4. **Token expiry:** Access tokens expire after 15 minutes, refresh tokens after 30 days (Flask-JWT-Extended defaults)
-5. **Password requirements:** Passwords must match during registration; no complexity requirements enforced
-6. **Task ownership:** Tasks are strictly tied to the user who created them; no sharing functionality
 
 ## Environment Variables (Optional)
 
@@ -192,5 +190,4 @@ DATABASE_URL=sqlite:///app.db
 ## Feature Implementation
 
 - Adding Pagination
-- Docker setup
 - Basic tests
